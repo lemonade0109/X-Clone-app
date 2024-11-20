@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
-import News from "@/components/News";
+import Sidebar from "@/components/layouts/Sidebar";
+import News from "@/components/layouts/News";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,7 +40,15 @@ export default function RootLayout({
 
           <div className="">{children}</div>
 
-          <div className="">
+          <div className="p-3 h-screen w-[24rem] border-l hidden lg:flex lg:flex-col">
+            <div className="sticky top-0 bg-white py-2">
+              <input
+                type="text"
+                placeholder="Search"
+                className="bg-gray-100 text-sm w-full px-4 py-2 border-gray-200 rounded-3xl"
+              />
+            </div>
+
             <News />
           </div>
         </div>
