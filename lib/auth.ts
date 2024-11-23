@@ -1,5 +1,6 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
+import type { AdapterUser } from "next-auth/adapters";
 
 const authConfig = {
   providers: [
@@ -8,6 +9,24 @@ const authConfig = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+
+  callbacks: {
+    async session({
+      session,
+      token,
+    }: {
+      session: { user: AdapterUser };
+      token: { sub: string };
+    }) {
+      const user = session.user as AdapterUser & {
+        username: string;
+        uid: string;
+      };
+      user.username = user.name!.split(" ").join("").toLocaleLowerCase();
+      user.uid = token.sub;
+      return { ...session, user, expires: null };
+    },
+  },
 };
 
 export const {
@@ -15,4 +34,4 @@ export const {
   signIn,
   signOut,
   handlers: { GET, POST },
-} = NextAuth(authConfig);
+} = NextAuth(authConfig as unknown as NextAuthConfig);
