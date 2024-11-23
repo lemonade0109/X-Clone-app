@@ -40,7 +40,7 @@ export default function RootLayout({
               <Sidebar />
             </div>
 
-            <div className="">{children}</div>
+            <div className="w-2xl flex-1">{children}</div>
 
             <div className="p-3 h-screen w-[24rem] border-l hidden lg:flex lg:flex-col">
               <div className="sticky top-0 bg-white py-2">
