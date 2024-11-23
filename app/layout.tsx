@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Sidebar from "@/components/layouts/Sidebar";
 import News from "@/components/layouts/News";
+import SessionWrapper from "@/components/Auth/SessionWrapper";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,30 +30,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="flex justify-between max-w-6xl mx-auto">
-          <div className="hidden xl:inline border-r border-gray-200 h-screen">
-            <Sidebar />
-          </div>
-
-          <div className="">{children}</div>
-
-          <div className="p-3 h-screen w-[24rem] border-l hidden lg:flex lg:flex-col">
-            <div className="sticky top-0 bg-white py-2">
-              <input
-                type="text"
-                placeholder="Search"
-                className="bg-gray-100 text-sm w-full px-4 py-2 border-gray-200 rounded-3xl"
-              />
+    <SessionWrapper>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <div className="flex justify-between max-w-6xl mx-auto">
+            <div className="hidden xl:inline border-r border-gray-200 h-screen">
+              <Sidebar />
             </div>
 
-            <News />
+            <div className="">{children}</div>
+
+            <div className="p-3 h-screen w-[24rem] border-l hidden lg:flex lg:flex-col">
+              <div className="sticky top-0 bg-white py-2">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="bg-gray-100 text-sm w-full px-4 py-2 border-gray-200 rounded-3xl"
+                />
+              </div>
+
+              <News />
+            </div>
           </div>
-        </div>
-      </body>
-    </html>
+        </body>
+      </html>
+    </SessionWrapper>
   );
 }
